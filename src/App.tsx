@@ -1,18 +1,19 @@
 import React, { useState, useRef } from 'react';
-import { 
-  Shield, 
-  X, 
-  Home, 
-  FileText, 
-  Info, 
-  Mail, 
-  Github, 
-  Linkedin, 
+import {
+  Shield,
+  X,
+  Home,
+  FileText,
+  Info,
+  Mail,
+  Github,
+  Linkedin,
   Twitter,
   Plus,
   MoreHorizontal,
   Check,
-  Menu
+  Menu,
+  NotepadText,
 } from 'lucide-react';
 
 type Page = 'home' | 'terms' | 'about' | 'contact';
@@ -159,7 +160,7 @@ function App() {
     <div className="w-full max-w-[384px] bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl p-4 sm:p-8 animate-scale-in">
       <div className="flex flex-col items-center">
         <div className="bg-[#006699] p-3 sm:p-4 rounded-full shadow-lg cursor-pointer"
-             onClick={() => fileInputRef.current?.click()}>
+          onClick={() => fileInputRef.current?.click()}>
           <Plus className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
         </div>
         <input
@@ -206,12 +207,12 @@ function App() {
             className="w-full text-sm sm:text-base border-0 bg-gray-50/80 rounded-xl px-3 sm:px-4 py-2 sm:py-3 focus:ring-2 focus:ring-black focus:outline-none transition-all duration-300 resize-none"
           />
           <div className="flex items-center gap-2">
-            <button 
+            <button
               onClick={handleUpload}
               disabled={!selectedFiles}
               className={`flex-1 py-2 sm:py-3 px-4 sm:px-6 rounded-xl text-sm sm:text-base transition-all duration-300
-                ${selectedFiles 
-                  ? 'bg-[#006699] text-white hover:bg-blue-700 transform hover:scale-[1.02]' 
+                ${selectedFiles
+                  ? 'bg-[#006699] text-white hover:bg-blue-700 transform hover:scale-[1.02]'
                   : 'bg-gray-200 text-gray-500 cursor-not-allowed'
                 }
                 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-lg`}
@@ -302,7 +303,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center">
-              <img 
+              <img
                 src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"
                 alt="IBM Logo"
                 className="h-6 sm:h-8 w-auto mr-4"
@@ -313,10 +314,23 @@ function App() {
                 <NavButton page="terms" icon={FileText} />
                 <NavButton page="about" icon={Info} />
                 <NavButton page="contact" icon={Mail} />
+                 
+                <div className="flex space-x-4">
+                <button   className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                  IBM-OFFER
+                </button>
+                <button  onClick={() => {
+              setShowTermsCard(false);
+              setTermsAccepted(true);
+            }}className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                  IBM-BGV
+                </button>
               </div>
+              </div>
+              
             </div>
             {/* Mobile Menu Button */}
-            <button 
+            <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2 rounded-lg bg-white/80 shadow-lg hover:bg-white/90 transition-colors"
             >
@@ -331,6 +345,18 @@ function App() {
             <NavButton page="terms" icon={FileText} />
             <NavButton page="about" icon={Info} />
             <NavButton page="contact" icon={Mail} />
+             
+            <div className="flex space-x-4">
+                <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                 IBM-OFFER
+                </button>
+                <button onClick={() => {
+              setShowTermsCard(false);
+              setTermsAccepted(true);
+            }} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                  IBM-BGV
+                </button>
+              </div>
           </div>
         </div>
       </nav>
@@ -361,7 +387,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
             <div className="col-span-2 sm:col-span-1">
-              <img 
+              <img
                 src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"
                 alt="IBM Logo"
                 className="h-6 sm:h-8 w-auto mb-4"
