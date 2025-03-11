@@ -57,6 +57,7 @@ const UploadCard: React.FC<UploadCardProps> = ({ selectedFiles, setSelectedFiles
     file_url: ''
   });
   const [selectedDepartment, setSelectedDepartment] = useState('');
+  const [isloading, setIsLoading] = useState(false);
 
   const handleFileSelect = (files: FileList | null) => {
     setSelectedFiles(files);
@@ -98,6 +99,7 @@ const UploadCard: React.FC<UploadCardProps> = ({ selectedFiles, setSelectedFiles
            return;
     }
 
+    setIsLoading(true);
     if (selectedFiles && selectedFiles.length > 0) {
       console.log("Uploading Files...");
 
@@ -141,16 +143,28 @@ const UploadCard: React.FC<UploadCardProps> = ({ selectedFiles, setSelectedFiles
         
         // Refresh the users list
         getall();
+        setIsLoading(false);
       } catch (error) {
         console.error("Upload failed:", error);
+        setIsLoading(false);
       }
     }
   };
 
   return (
     <div className="w-full   mx-auto">
+      {isloading? <div className="fixed inset-0 bg-gray-500/50 flex items-center justify-center">
+        <div className="relative w-12 h-12">
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="w-4 h-4 border-b-2 border-[#006699] rounded-full animate-spin"></div>
+          </div>
+        </div>
+      </div>:null}
+
+      
      {window.location.pathname == '/Admin/12f1c4a3-5b67-4d92-a8c3-9f1c8e60a92e'?
        <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-xl">
+        
         <input
           ref={fileInputRef}
           type="file"
@@ -204,7 +218,7 @@ const UploadCard: React.FC<UploadCardProps> = ({ selectedFiles, setSelectedFiles
           <div className="flex items-center gap-2">
             <button
               onClick={handleUpload}
-              disabled={!selectedFiles || !formData.name || !formData.email || !formData.password}
+              disabled={isloading || !selectedFiles || !formData.name || !formData.email || !formData.password}
               className={`flex-1 py-2 sm:py-3 px-4 sm:px-6 rounded-xl text-sm sm:text-base transition-all duration-300
                 ${selectedFiles && formData.name && formData.email && formData.password
                   ? 'bg-[#006699] text-white hover:bg-blue-700 transform hover:scale-[1.02]'
